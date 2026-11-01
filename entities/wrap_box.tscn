@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://djvf2xarwyopv"]
+
+[ext_resource type="Script" uid="uid://c1l0kqos37dpu" path="res://entities/wrap_box.gd" id="1_xm3uo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20ill"]
+size = Vector2(1, 1)
+
+[node name="WrapBox" type="Area2D" unique_id=902000330]
+script = ExtResource("1_xm3uo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2036900943]
+shape = SubResource("RectangleShape2D_20ill")

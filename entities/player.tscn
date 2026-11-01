@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://4sfs3ns6o5xu"]
+
+[ext_resource type="Script" uid="uid://cr1cik7l782rs" path="res://entities/player.gd" id="1_merdl"]
+[ext_resource type="Texture2D" uid="uid://c8vrq87dhuupm" path="res://monochrome_tilemap_transparent.png" id="2_b0kkn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qly61"]
+atlas = ExtResource("2_b0kkn")
+region = Rect2(119, 17, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20ill"]
+size = Vector2(2, 2)
+
+[node name="Player" type="CharacterBody2D" unique_id=1734533852]
+script = ExtResource("1_merdl")
+speed = 400.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1551144111]
+position = Vector2(5.9604645e-08, 2.2737368e-13)
+texture = SubResource("AtlasTexture_qly61")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1840587949]
+scale = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_20ill")

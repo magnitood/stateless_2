@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bir8gvgpk1m2f"]
+
+[ext_resource type="PackedScene" uid="uid://4sfs3ns6o5xu" path="res://entities/player.tscn" id="1_jdqta"]
+[ext_resource type="PackedScene" uid="uid://djvf2xarwyopv" path="res://entities/wrap_box.tscn" id="2_36mbt"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_til44"]
+size = Vector2(2, 2)
+
+[node name="Node2D" type="Node2D" unique_id=2013404950]
+
+[node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("camera", "wrap_box") instance=ExtResource("1_jdqta")]
+position = Vector2(-445, -292)
+speed = 50.0
+camera = NodePath("../Camera2D")
+wrap_box = NodePath("../WrapBox")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=332662986]
+position = Vector2(-460, 276)
+ignore_rotation = false
+zoom = Vector2(7.205, 7.205)
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 10.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1758377034]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = -1
+offset_left = 84.0
+offset_top = 81.0
+offset_right = 124.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1027023943]
+position = Vector2(-244, 121)
+scale = Vector2(-12.963864, 83.791245)
+texture = SubResource("PlaceholderTexture2D_til44")
+
+[node name="WrapBox" parent="." unique_id=902000330 node_paths=PackedStringArray("boundary_crossers") instance=ExtResource("2_36mbt")]
+scale = Vector2(921, 553)
+boundary_crossers = [NodePath("../Player")]
+disable_mirroring = true

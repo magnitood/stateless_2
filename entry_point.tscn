@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://kt4ghssvggco"]
+
+[ext_resource type="Script" uid="uid://7lapdqawwq1v" path="res://entry_point.gd" id="1_h8jua"]
+[ext_resource type="PackedScene" uid="uid://yan4br6vvp4g" path="res://test_tilemap.tscn" id="2_ny5dk"]
+
+[node name="EntryPoint" type="Node2D" unique_id=1297449171]
+script = ExtResource("1_h8jua")
+metadata/_edit_horizontal_guides_ = [-672.0]
+
+[node name="TestTilemap" parent="." unique_id=1124518032 instance=ExtResource("2_ny5dk")]

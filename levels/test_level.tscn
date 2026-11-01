@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://d2ed7r38myxbf"]
+
+[ext_resource type="PackedScene" uid="uid://4sfs3ns6o5xu" path="res://entities/player.tscn" id="1_46lwt"]
+[ext_resource type="Script" uid="uid://cg153lqol556q" path="res://levels/test_level.gd" id="1_x25rp"]
+[ext_resource type="PackedScene" uid="uid://djvf2xarwyopv" path="res://entities/wrap_box.tscn" id="3_gmgay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x25rp"]
+size = Vector2(2, 2)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gmgay"]
+size = Vector2(2, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_til44"]
+
+[node name="TestLevel" type="Node2D" unique_id=74627104]
+script = ExtResource("1_x25rp")
+
+[node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("camera", "wrap_box") instance=ExtResource("1_46lwt")]
+position = Vector2(-705, 27.999939)
+motion_mode = 1
+speed = 500.0
+camera = NodePath("Camera2D")
+wrap_box = NodePath("../WrapBox")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=266014654]
+ignore_rotation = false
+zoom = Vector2(0.5, 0.5)
+position_smoothing_speed = 10.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 10.0
+
+[node name="Wall1" type="CharacterBody2D" parent="." unique_id=50669606]
+position = Vector2(-672, -100.00006)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1" unique_id=507217857]
+scale = Vector2(50, 50)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall1" unique_id=2008705431]
+scale = Vector2(50, 50)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="Wall2" type="CharacterBody2D" parent="." unique_id=199355700]
+position = Vector2(-383, 72.99994)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=823304044]
+scale = Vector2(338.44238, -23.281116)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1436517899]
+scale = Vector2(338.44238, -23.281116)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="Wall3" type="CharacterBody2D" parent="." unique_id=1001358475]
+position = Vector2(421.99988, 328.99994)
+rotation = 1.5707964
+scale = Vector2(0.46068302, 0.7147429)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3" unique_id=1097376729]
+scale = Vector2(338.44238, -23.281116)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall3" unique_id=663496324]
+scale = Vector2(338.44238, -23.281116)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="Box" type="Node2D" parent="." unique_id=121483316]
+position = Vector2(240, -284.00006)
+
+[node name="CharacterBody2D3" type="CharacterBody2D" parent="Box" unique_id=1276018976]
+position = Vector2(1.9998779, -189)
+scale = Vector2(0.5253862, 0.53875375)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box/CharacterBody2D3" unique_id=745778538]
+scale = Vector2(338.44238, -23.281116)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box/CharacterBody2D3" unique_id=1707317501]
+scale = Vector2(338.44238, -23.281116)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="CharacterBody2D4" type="CharacterBody2D" parent="Box" unique_id=931086827]
+position = Vector2(167, 1.000061)
+rotation = 1.5707964
+scale = Vector2(0.5253862, 0.53875375)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box/CharacterBody2D4" unique_id=1155183676]
+scale = Vector2(338.44238, -23.281116)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box/CharacterBody2D4" unique_id=1712683766]
+scale = Vector2(338.44238, -23.281116)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="CharacterBody2D5" type="CharacterBody2D" parent="Box" unique_id=795179647]
+position = Vector2(-163, -20.99997)
+rotation = 1.5707964
+scale = Vector2(0.5253862, 0.53875375)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box/CharacterBody2D5" unique_id=353311342]
+scale = Vector2(338.44238, -23.281116)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box/CharacterBody2D5" unique_id=1540026455]
+scale = Vector2(338.44238, -23.281116)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="CharacterBody2D6" type="CharacterBody2D" parent="Box" unique_id=1348404060]
+position = Vector2(2.000122, 169.00009)
+rotation = 3.1415927
+scale = Vector2(0.5253862, 0.53875375)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Box/CharacterBody2D6" unique_id=1713362818]
+scale = Vector2(338.44238, -23.281116)
+shape = SubResource("RectangleShape2D_x25rp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Box/CharacterBody2D6" unique_id=209501137]
+scale = Vector2(338.44238, -23.281116)
+texture = SubResource("PlaceholderTexture2D_gmgay")
+
+[node name="OutsideSpawnPoint" type="Node2D" parent="." unique_id=1851465269]
+position = Vector2(-705, 27.999939)
+
+[node name="BoxSpawnPoint" type="Node2D" parent="." unique_id=137406028]
+position = Vector2(116, -148.00006)
+
+[node name="TPOutofBox" type="Area2D" parent="." unique_id=142841339]
+position = Vector2(120.00014, -429)
+rotation = -3.1415927
+scale = Vector2(2.6255305, -2.629536)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TPOutofBox" unique_id=1971088122]
+shape = SubResource("RectangleShape2D_til44")
+
+[node name="TPIntoBox" type="Area2D" parent="." unique_id=13202771]
+position = Vector2(30.000137, -125.99999)
+rotation = -3.1415927
+scale = Vector2(2.6255305, -2.629536)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TPIntoBox" unique_id=835429135]
+shape = SubResource("RectangleShape2D_til44")
+
+[node name="WrapBox" parent="." unique_id=902000330 node_paths=PackedStringArray("boundary_crossers") instance=ExtResource("3_gmgay")]
+position = Vector2(-7.275958e-12, 9.536743e-07)
+scale = Vector2(2277, 1339)
+boundary_crossers = [NodePath("../Player")]
+disable_mirroring = true
+
+[connection signal="body_entered" from="TPOutofBox" to="." method="_on_tp_outof_box_area_entered"]
+[connection signal="body_entered" from="TPIntoBox" to="." method="_on_tp_into_box_area_entered"]
