@@ -23,7 +23,6 @@ func _ready() -> void:
     if Engine.is_editor_hint() or disable_mirroring:
         return
         
-    var poop: float = 4
     var rect: Rect2 = get_rect()
     var viewport: SubViewport = SubViewport.new()
     var camera: Camera2D = Camera2D.new()
