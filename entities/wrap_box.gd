@@ -26,10 +26,10 @@ func _ready() -> void:
     var rect: Rect2 = get_rect()
     var viewport: SubViewport = SubViewport.new()
     var camera: Camera2D = Camera2D.new()
-    camera.zoom = Vector2(1, 1)
+    camera.zoom = get_viewport().get_camera_2d().zoom
     
     viewport.add_child(camera)
-    viewport.size = rect.size
+    viewport.size = rect.size * get_viewport().get_camera_2d().zoom
     viewport.world_2d = get_parent().get_world_2d()
     viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
     viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -86,4 +86,5 @@ func make_sprite(
     var sprite: Sprite2D = Sprite2D.new()
     sprite.position = pos
     sprite.texture = texture
+    sprite.scale /= get_viewport().get_camera_2d().zoom
     return sprite

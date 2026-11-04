@@ -24,7 +24,6 @@ wrap_box = NodePath("../WrapBox")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=266014654]
 ignore_rotation = false
-zoom = Vector2(0.5, 0.5)
 position_smoothing_speed = 10.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0
@@ -144,7 +143,6 @@ shape = SubResource("RectangleShape2D_til44")
 position = Vector2(-7.275958e-12, 9.536743e-07)
 scale = Vector2(2277, 1339)
 boundary_crossers = [NodePath("../Player")]
-disable_mirroring = true
 
 [connection signal="body_entered" from="TPOutofBox" to="." method="_on_tp_outof_box_area_entered"]
 [connection signal="body_entered" from="TPIntoBox" to="." method="_on_tp_into_box_area_entered"]
