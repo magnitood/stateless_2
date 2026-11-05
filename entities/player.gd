@@ -5,9 +5,11 @@ extends CharacterBody2D
 enum GravityDirection {DOWN, UP, LEFT, RIGHT}
 
 @export var speed: float
-@export var camera: Camera2D
 
+@export var camera: Camera2D
 @export var wrap_box: WrapBox
+
+@export var wrap_player: bool = true
         
 var current_gravity_direction: GravityDirection = GravityDirection.DOWN
     
@@ -45,8 +47,9 @@ func _physics_process(delta: float) -> void:
     position += movement * delta * speed
     
     var rect: Rect2 = wrap_box.get_rect()
-    position.x = wrapf(position.x, rect.position.x, rect.position.x + rect.size.x)
-    position.y = wrapf(position.y, rect.position.y, rect.position.y + rect.size.y) 
+    if wrap_player:
+        position.x = wrapf(position.x, rect.position.x, rect.position.x + rect.size.x)
+        position.y = wrapf(position.y, rect.position.y, rect.position.y + rect.size.y) 
 
     if Input.is_action_just_pressed("interact"):
         match current_gravity_direction:
@@ -67,6 +70,7 @@ func _get_configuration_warnings() -> PackedStringArray:
         warnings.append("Camera not attached")
     if not wrap_box or not wrap_box is WrapBox:
         warnings.append("Missing Wrap Box")
-    if floor(camera.zoom) != camera.zoom:
+        
+    if camera and floor(camera.zoom) != camera.zoom:
         warnings.append("Camera zoom not integer multiple of resolution, sprites may flicker")
     return warnings

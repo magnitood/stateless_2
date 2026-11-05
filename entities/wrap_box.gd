@@ -19,15 +19,17 @@ var offsets: Array[Vector2] = [
 ]
 
 func _ready() -> void:
+    $CollisionShape2D.disabled = true
     assert(get_parent() is CanvasItem)
     if Engine.is_editor_hint() or disable_mirroring:
         return
-        
+
     var rect: Rect2 = get_rect()
     var viewport: SubViewport = SubViewport.new()
     var camera: Camera2D = Camera2D.new()
     camera.zoom = get_viewport().get_camera_2d().zoom
-    
+    camera.position = position
+
     viewport.add_child(camera)
     viewport.size = rect.size * get_viewport().get_camera_2d().zoom
     viewport.world_2d = get_parent().get_world_2d()
@@ -61,23 +63,27 @@ func _process(_delta: float) -> void:
     scale.x = -scale.x if scale.x < 0 else scale.x
     scale.y = -scale.y if scale.y < 0 else scale.y
     scale = floor(scale)
-    
+
     if Engine.is_editor_hint() or disable_mirroring:
         return
 
     assert(boundary_crossers.size() == array_of_sprite_list.size())
+    var rect: Rect2 = get_rect()
     for i in array_of_sprite_list.size():
         var sprite_list: Array[Sprite2D] = array_of_sprite_list[i]
         for j in offsets.size():
-            sprite_list[j].position = boundary_crossers[i].position + offsets[j]*get_rect().size
+            sprite_list[j].position = boundary_crossers[i].position + offsets[j]*rect.size
 
 
-
-func get_rect() -> Rect2:
+@warning_ignore("shadowed_variable_base_class")
+func get_rect_from_pos_scale(position: Vector2, scale: Vector2) -> Rect2:
     var rect: Rect2 = Rect2()
     rect.position = Vector2(position - scale/2)
     rect.size = scale
     return rect
+    
+func get_rect() -> Rect2:
+    return get_rect_from_pos_scale(position, scale)
 
 func make_sprite(
     pos: Vector2,
