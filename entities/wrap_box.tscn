@@ -10,3 +10,4 @@ script = ExtResource("1_xm3uo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2036900943]
 shape = SubResource("RectangleShape2D_20ill")
+disabled = true

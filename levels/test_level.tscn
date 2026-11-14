@@ -15,18 +15,11 @@ size = Vector2(2, 2)
 [node name="TestLevel" type="Node2D" unique_id=74627104]
 script = ExtResource("1_x25rp")
 
-[node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("camera", "wrap_box") instance=ExtResource("1_46lwt")]
+[node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("wrap_box") instance=ExtResource("1_46lwt")]
 position = Vector2(-705, 27.999939)
 motion_mode = 1
 speed = 500.0
-camera = NodePath("Camera2D")
 wrap_box = NodePath("../WrapBox")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=266014654]
-ignore_rotation = false
-position_smoothing_speed = 10.0
-rotation_smoothing_enabled = true
-rotation_smoothing_speed = 10.0
 
 [node name="Wall1" type="CharacterBody2D" parent="." unique_id=50669606]
 position = Vector2(-672, -100.00006)

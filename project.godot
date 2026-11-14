@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*uid://doc515iq555gr"
+GameManager="*uid://doc515iq555gr"
 
 [debug]
 

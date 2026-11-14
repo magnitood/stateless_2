@@ -1,10 +1,14 @@
 [gd_scene format=4 uid="uid://yan4br6vvp4g"]
 
+[ext_resource type="Script" uid="uid://dw2sshamfpw3v" path="res://levels/test_tilemap.gd" id="1_kfirg"]
 [ext_resource type="Texture2D" uid="uid://c8vrq87dhuupm" path="res://monochrome_tilemap_transparent.png" id="1_r4614"]
 [ext_resource type="PackedScene" uid="uid://4sfs3ns6o5xu" path="res://entities/player.tscn" id="2_y8swa"]
 [ext_resource type="PackedScene" uid="uid://djvf2xarwyopv" path="res://entities/wrap_box.tscn" id="3_01qd5"]
+[ext_resource type="PackedScene" uid="uid://dp8p3jjt23jrn" path="res://entities/scene_transition_portal.tscn" id="5_kfirg"]
+[ext_resource type="Shader" uid="uid://c5pwowkb20isk" path="res://levels/test_tilemap.tres" id="6_o2fgy"]
+[ext_resource type="PackedScene" uid="uid://dya3fyadcj7y8" path="res://levels/test_level2.tscn" id="7_8g4pe"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_01qd5"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kfirg"]
 texture = ExtResource("1_r4614")
 separation = Vector2i(1, 1)
 1:0/0 = 0
@@ -308,7 +312,10 @@ separation = Vector2i(1, 1)
 11:14/0 = 0
 12:14/0 = 0
 13:14/0 = 0
+14:14/next_alternative_id = 2
 14:14/0 = 0
+14:14/1 = 1
+14:14/1/physics_layer_0/polygon_0/points = PackedVector2Array(6, 6, 8, 6, 8, 7, 7, 7, 7, 8, 6, 8)
 15:14/0 = 0
 16:14/0 = 0
 17:14/0 = 0
@@ -424,26 +431,40 @@ separation = Vector2i(1, 1)
 
 [sub_resource type="TileSet" id="TileSet_20ill"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_01qd5")
+sources/0 = SubResource("TileSetAtlasSource_kfirg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2fgy"]
+shader = ExtResource("6_o2fgy")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_20ill"]
+viewport_path = NodePath("SubViewport")
 
 [node name="TestTilemap" type="Node2D" unique_id=1124518032]
+script = ExtResource("1_kfirg")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=55715066]
-tile_map_data = PackedByteArray("AAABAAEAAAAHAAQAAAABAAIAAAAHAAUAAAABAAMAAAAHAAYAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAADAAEAAAAJAAQAAAADAAIAAAAJAAUAAAADAAMAAAAJAAYAAAD8//3/AAAAAAkAAAD8//7/AAAAAAoAAAD8////AAAAAAsAAAD9//3/AAABAAkAAAD9//7/AAABAAoAAAD9////AAABAAsAAAD+//3/AAACAAkAAAD+//7/AAACAAoAAAD+////AAACAAsAAAABAP//AAAIAAsAAAACAP//AAAIAAsAAAADAP//AAAIAAsAAAAEAP//AAAIAAsAAAAFAP//AAAIAAsAAAAAAP7/AAAIAA0AAGAAAP3/AAAIAA0AAGAAAPz/AAAIAA0AAGAAAPv/AAAIAA0AAGD///r/AAAIAAsAAAD+//r/AAAIAAsAAAD9//r/AAAIAAsAAAD8//r/AAAIAAsAAAD7//r/AAAIAAsAAAAGAAAAAAAIAAsAAGAGAAEAAAAIAAsAAGAHAAIAAAAIAA0AAAAIAAIAAAAIAA0AAAAAAP//AAAHAAsAAGAGAP//AAAHAAsAAFAGAAIAAAAHAAsAAGAAAPr/AAAHAAsAAFADAP7/AAAGAAoAAAA=")
+tile_map_data = PackedByteArray("AAABAAEAAAAHAAQAAAABAAIAAAAHAAUAAAABAAMAAAAHAAYAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAADAAEAAAAJAAQAAAADAAIAAAAJAAUAAAADAAMAAAAJAAYAAAD8//3/AAAAAAkAAAD8//7/AAAAAAoAAAD8////AAAAAAsAAAD9//3/AAABAAkAAAD9//7/AAABAAoAAAD9////AAABAAsAAAD+//3/AAACAAkAAAD+//7/AAACAAoAAAD+////AAACAAsAAAABAP//AAAIAAsAAAACAP//AAAIAAsAAAADAP//AAAIAAsAAAAEAP//AAAIAAsAAAAFAP//AAAIAAsAAAAAAP7/AAAIAA0AAGAAAP3/AAAIAA0AAGAAAPz/AAAIAA0AAGAAAPv/AAAIAA0AAGD///r/AAAIAAsAAAD+//r/AAAIAAsAAAD9//r/AAAIAAsAAAD8//r/AAAIAAsAAAD7//r/AAAIAAsAAAAGAAAAAAAIAAsAAGAGAAEAAAAIAAsAAGAHAAIAAAAIAA0AAAAIAAIAAAAIAA0AAAAAAP//AAAHAAsAAGAGAP//AAAHAAsAAFAGAAIAAAAHAAsAAGAAAPr/AAAHAAsAAFA=")
 tile_set = SubResource("TileSet_20ill")
 
-[node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("camera", "wrap_box") instance=ExtResource("2_y8swa")]
-position = Vector2(-16, 20)
+[node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("wrap_box") instance=ExtResource("2_y8swa")]
+position = Vector2(94, -24)
 speed = 100.0
-camera = NodePath("Camera2D")
 wrap_box = NodePath("../WrapBox")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=459749220]
-ignore_rotation = false
-zoom = Vector2(4, 4)
-rotation_smoothing_enabled = true
-rotation_smoothing_speed = 10.0
 
 [node name="WrapBox" parent="." unique_id=902000330 node_paths=PackedStringArray("boundary_crossers") instance=ExtResource("3_01qd5")]
 scale = Vector2(303, 213)
 boundary_crossers = [NodePath("../Player")]
+
+[node name="SceneTransitionPortal" parent="." unique_id=2119581961 instance=ExtResource("5_kfirg")]
+position = Vector2(48, -28)
+portal_id = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneTransitionPortal" unique_id=1564256140]
+visible = false
+material = SubResource("ShaderMaterial_o2fgy")
+texture = SubResource("ViewportTexture_20ill")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=146016139]
+
+[node name="TestLevel2" parent="SubViewport" unique_id=651962355 instance=ExtResource("7_8g4pe")]
+visible = false

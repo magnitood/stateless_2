@@ -15,9 +15,20 @@ script = ExtResource("1_merdl")
 speed = 400.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1551144111]
-position = Vector2(5.9604645e-08, 2.2737368e-13)
 texture = SubResource("AtlasTexture_qly61")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1840587949]
+visible = false
 scale = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_20ill")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1377112153]
+zoom = Vector2(4, 4)
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 10.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=689849068]
+target_position = Vector2(-26, 0)
+
+[node name="RayCast2D2" type="RayCast2D" parent="." unique_id=517183756]
+target_position = Vector2(26, 0)

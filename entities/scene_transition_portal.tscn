@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dp8p3jjt23jrn"]
+
+[ext_resource type="Script" uid="uid://bdpaqlx56k7sb" path="res://entities/scene_transition_portal.gd" id="1_g0q8t"]
+[ext_resource type="Texture2D" uid="uid://c8vrq87dhuupm" path="res://monochrome_tilemap_transparent.png" id="2_eay2k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dkrt"]
+atlas = ExtResource("2_eay2k")
+region = Rect2(68, 153, 16, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20ill"]
+size = Vector2(32, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfirg"]
+size = Vector2(2, 26)
+
+[node name="SceneTransitionPortal" type="Node2D" unique_id=2119581961]
+script = ExtResource("1_g0q8t")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1175493468]
+position = Vector2(0, 1.937151e-07)
+scale = Vector2(1, 0.78787875)
+texture = SubResource("AtlasTexture_0dkrt")
+
+[node name="TransitionArea" type="Area2D" parent="." unique_id=1683283691]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TransitionArea" unique_id=1010932610]
+shape = SubResource("RectangleShape2D_20ill")
+
+[node name="TeleportArea" type="Area2D" parent="." unique_id=1899135583]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportArea" unique_id=205287173]
+shape = SubResource("RectangleShape2D_kfirg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1734670559]
+zoom = Vector2(4, 4)
