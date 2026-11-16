@@ -42,7 +42,9 @@ func _physics_process(delta: float) -> void:
     var movement: Vector2
     movement.x = Input.get_action_strength("right") - Input.get_action_strength("left")
     movement.y = Input.get_action_strength("down") - Input.get_action_strength("up")
-    movement = movement.normalized().rotated(physics_rotation(current_gravity_direction))
+    if movement.length() > 1.0:
+        movement = movement.normalized()
+    movement = movement.rotated(physics_rotation(current_gravity_direction))
 
     position += movement * delta * speed
     
