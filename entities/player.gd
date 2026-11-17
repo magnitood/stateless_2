@@ -54,12 +54,12 @@ func _physics_process(delta: float) -> void:
     # if we want to split the acceleration and deseleration curves,
     # make if checking movement == 0
     # velocity = velocity.move_toward(movement * speed, speed/time_to_get_to_max_acc_sec * delta)
-    velocity = velocity.move_toward(movement * speed, 1200 * delta)
+    velocity = velocity.move_toward(movement * speed, 1600 * delta)
 
     var rect: Rect2 = wrap_box.get_rect()
     if wrap_player:
         position.x = wrapf(position.x, rect.position.x, rect.position.x + rect.size.x)
-        position.y = wrapf(position.y, rect.position.y, rect.position.y + rect.size.y) 
+        position.y = wrapf(position.y, rect.position.y, rect.position.y + rect.size.y)
 
     if Input.is_action_just_pressed("interact"):
         current_gravity_direction = get_nearest_wall_gravity()
@@ -108,7 +108,8 @@ func get_right_gravity(current: GravityDirection) -> GravityDirection:
 
 func get_nearest_wall_gravity() -> GravityDirection:
     if $LeftRayCast.is_colliding() and $RightRayCast.is_colliding():
-        pass
+        print("dual collision detected at player position: %v, fix if not indented" % position)
+        return current_gravity_direction
     elif $LeftRayCast.is_colliding():
         return get_left_gravity(current_gravity_direction)
     elif $RightRayCast.is_colliding():
