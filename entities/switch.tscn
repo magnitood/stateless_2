@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dj5i2objft7u8"]
+
+[ext_resource type="Script" uid="uid://cvtj7okqtt0dk" path="res://levels/switch.gd" id="1_acao6"]
+[ext_resource type="Texture2D" uid="uid://rnmvbksngmt6" path="res://icon.svg" id="1_d0rl7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_044e1"]
+size = Vector2(124, 120)
+
+[node name="switch" type="Node2D" unique_id=1904724855]
+script = ExtResource("1_acao6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2069924226]
+texture = ExtResource("1_d0rl7")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2025558117]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1617930004]
+shape = SubResource("RectangleShape2D_044e1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

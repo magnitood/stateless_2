@@ -449,7 +449,6 @@ tile_set = SubResource("TileSet_20ill")
 [node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("wrap_box") instance=ExtResource("2_y8swa")]
 position = Vector2(94, -24)
 speed = 100.0
-time_to_get_to_max_acc_sec = null
 wrap_box = NodePath("../WrapBox")
 
 [node name="WrapBox" parent="." unique_id=902000330 node_paths=PackedStringArray("boundary_crossers") instance=ExtResource("3_01qd5")]

@@ -73,6 +73,7 @@ func _process(_delta: float) -> void:
         var sprite_list: Array[Sprite2D] = array_of_sprite_list[i]
         for j in offsets.size():
             sprite_list[j].position = boundary_crossers[i].position + offsets[j]*rect.size
+            sprite_list[j].rotation = boundary_crossers[i].rotation
 
 
 @warning_ignore("shadowed_variable_base_class")
