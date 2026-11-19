@@ -22,12 +22,17 @@ shape = SubResource("RectangleShape2D_20ill")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1377112153]
 ignore_rotation = false
-zoom = Vector2(4, 4)
+zoom = Vector2(6, 6)
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0
 
 [node name="LeftRayCast" type="RayCast2D" parent="." unique_id=689849068]
+position = Vector2(0, 8)
 target_position = Vector2(-20, 0)
 
 [node name="RightRayCast" type="RayCast2D" parent="." unique_id=517183756]
+position = Vector2(0, 8)
 target_position = Vector2(20, 0)
+
+[node name="PlayerFoot" type="Node2D" parent="." unique_id=1905620956]
+position = Vector2(0, 8)

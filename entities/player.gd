@@ -2,9 +2,7 @@
 class_name Player
 extends CharacterBody2D
 
-enum GravityDirection {DOWN, UP, LEFT, RIGHT}
-
-@export var speed: float = 400
+@export var speed: float = 500
 @export var time_to_get_to_max_acc_sec: float = 0.25
 
 @export var wrap_box: WrapBox
@@ -12,9 +10,13 @@ enum GravityDirection {DOWN, UP, LEFT, RIGHT}
 @export var disabled: bool    = false
 @export var wrap_player: bool = true
 
+enum GravityDirection {DOWN, UP, LEFT, RIGHT}
+
 var current_gravity_direction: GravityDirection = GravityDirection.DOWN
 var default_up_direction: Vector2 = up_direction
 
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var foot: Node2D = $PlayerFoot
 @onready var default_zoom: Vector2 = $Camera2D.zoom
 
 func physics_rotation(dir: GravityDirection) -> float:
@@ -43,7 +45,7 @@ func _physics_process(delta: float) -> void:
     var zoom_duration_sec: float = 0.25
     var t: float = delta/zoom_duration_sec
     if Input.is_action_pressed("down"):
-        $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom - Vector2(1, 1), t)
+        $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom - Vector2(1.5, 1.5), t)
     else:
         $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom, t)
 
@@ -77,17 +79,6 @@ func _physics_process(delta: float) -> void:
 
     move_and_slide()
 
-func _get_configuration_warnings() -> PackedStringArray:
-    var warnings: PackedStringArray
-    if not $Camera2D or not $Camera2D is Camera2D:
-        warnings.append("$Camera2D not attached")
-    if not wrap_box or not wrap_box is WrapBox:
-        warnings.append("Missing Wrap Box")
-
-    if $Camera2D and floor($Camera2D.zoom) != $Camera2D.zoom:
-        warnings.append("$Camera2D zoom not integer multiple of resolution, sprites may flicker")
-    return warnings
-
 func get_left_gravity(current: GravityDirection) -> GravityDirection:
     match current:
         GravityDirection.DOWN:
@@ -118,11 +109,26 @@ func get_right_gravity(current: GravityDirection) -> GravityDirection:
 
 func get_nearest_wall_gravity() -> GravityDirection:
     if $LeftRayCast.is_colliding() and $RightRayCast.is_colliding():
-        print("dual collision detected at player position: %v, fix if not indented" % position)
-        return current_gravity_direction
+        var left_point: Vector2 = abs($LeftRayCast.get_collision_point() - position)
+        var right_point: Vector2 = abs($RightRayCast.get_collision_point() - position)
+        if left_point < right_point:
+            return get_left_gravity(current_gravity_direction)
+        else:
+            return get_right_gravity(current_gravity_direction)
     elif $LeftRayCast.is_colliding():
         return get_left_gravity(current_gravity_direction)
     elif $RightRayCast.is_colliding():
         return get_right_gravity(current_gravity_direction)
 
     return current_gravity_direction
+
+func _get_configuration_warnings() -> PackedStringArray:
+    var warnings: PackedStringArray
+    if not $Camera2D or not $Camera2D is Camera2D:
+        warnings.append("$Camera2D not attached")
+    if not wrap_box or not wrap_box is WrapBox:
+        warnings.append("Missing Wrap Box")
+
+    if $Camera2D and floor($Camera2D.zoom) != $Camera2D.zoom:
+        warnings.append("$Camera2D zoom not integer multiple of resolution, sprites may flicker")
+    return warnings

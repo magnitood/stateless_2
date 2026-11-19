@@ -34,7 +34,7 @@ func _ready() -> void:
     viewport.size = rect.size * get_viewport().get_camera_2d().zoom
     viewport.world_2d = get_parent().get_world_2d()
     viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
-    viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+    viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
     viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
     viewport.canvas_item_default_texture_repeat = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_ENABLED
 
@@ -94,4 +94,5 @@ func make_sprite(
     sprite.position = pos
     sprite.texture = texture
     sprite.scale /= get_viewport().get_camera_2d().zoom
+    sprite.z_index = -1
     return sprite

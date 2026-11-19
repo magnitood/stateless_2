@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://4sfs3ns6o5xu" path="res://entities/player.tscn" id="2_y8swa"]
 [ext_resource type="PackedScene" uid="uid://djvf2xarwyopv" path="res://entities/wrap_box.tscn" id="3_01qd5"]
 [ext_resource type="PackedScene" uid="uid://dp8p3jjt23jrn" path="res://entities/scene_transition_portal.tscn" id="5_kfirg"]
-[ext_resource type="Shader" uid="uid://c5pwowkb20isk" path="res://levels/test_tilemap.tres" id="6_o2fgy"]
 [ext_resource type="PackedScene" uid="uid://dya3fyadcj7y8" path="res://levels/test_level2.tscn" id="7_8g4pe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kfirg"]
@@ -379,8 +378,11 @@ separation = Vector2i(1, 1)
 15:17/0 = 0
 16:17/0 = 0
 17:17/0 = 0
+17:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, -4, 8, -4, -4, 8, -4, 8, -8)
 18:17/0 = 0
+18:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, -4, -8, -4, -8, -8)
 19:17/0 = 0
+19:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -8, -8, -8, -4, 4, -4, 4, 8, 8, 8)
 0:18/0 = 0
 1:18/0 = 0
 2:18/0 = 0
@@ -399,7 +401,9 @@ separation = Vector2i(1, 1)
 15:18/0 = 0
 16:18/0 = 0
 17:18/0 = 0
+17:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -4, -8, -4, 8, -8, 8)
 19:18/0 = 0
+19:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, 4, 8, 4, -8, 8, -8)
 0:19/0 = 0
 1:19/0 = 0
 2:19/0 = 0
@@ -418,7 +422,9 @@ separation = Vector2i(1, 1)
 15:19/0 = 0
 16:19/0 = 0
 17:19/0 = 0
+17:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, 4, -4, 4, -4, -8, -8, -8)
 18:19/0 = 0
+18:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, 4, 8, 4, 8, 8)
 11:7/0 = 0
 12:6/0 = 0
 12:7/0 = 0
@@ -428,44 +434,32 @@ separation = Vector2i(1, 1)
 2:11/0 = 0
 2:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(6, -8, 8, -8, 8, 8, 6, 8)
 19:19/0 = 0
+19:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 8, 8, -8, 4, -8, 4, 4, -8, 4, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_20ill"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_kfirg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2fgy"]
-shader = ExtResource("6_o2fgy")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_20ill"]
-viewport_path = NodePath("SubViewport")
-
 [node name="TestTilemap" type="Node2D" unique_id=1124518032]
 script = ExtResource("1_kfirg")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=55715066]
-tile_map_data = PackedByteArray("AAABAAEAAAAHAAQAAAABAAIAAAAHAAUAAAABAAMAAAAHAAYAAAACAAEAAAAIAAQAAAACAAIAAAAIAAUAAAACAAMAAAAIAAYAAAADAAEAAAAJAAQAAAADAAIAAAAJAAUAAAADAAMAAAAJAAYAAAD8//3/AAAAAAkAAAD8//7/AAAAAAoAAAD8////AAAAAAsAAAD9//3/AAABAAkAAAD9//7/AAABAAoAAAD9////AAABAAsAAAD+//3/AAACAAkAAAD+//7/AAACAAoAAAD+////AAACAAsAAAABAP//AAAIAAsAAAACAP//AAAIAAsAAAADAP//AAAIAAsAAAAEAP//AAAIAAsAAAAFAP//AAAIAAsAAAAAAP7/AAAIAA0AAGAAAP3/AAAIAA0AAGAAAPz/AAAIAA0AAGAAAPv/AAAIAA0AAGD///r/AAAIAAsAAAD+//r/AAAIAAsAAAD9//r/AAAIAAsAAAD8//r/AAAIAAsAAAD7//r/AAAIAAsAAAAGAAAAAAAIAAsAAGAGAAEAAAAIAAsAAGAHAAIAAAAIAA0AAAAIAAIAAAAIAA0AAAAAAP//AAAHAAsAAGAGAP//AAAHAAsAAFAGAAIAAAAHAAsAAGAAAPr/AAAHAAsAAFA=")
+tile_map_data = PackedByteArray("AAAFAAAAAAAIAAUAAAAEAAAAAAAIAAUAAAADAAAAAAAIAAUAAAACAAAAAAAIAAUAAAABAAAAAAAIAAUAAAAAAAAAAAAIAAUAAAD//wAAAAAIAAUAAAD+/wAAAAAIAAUAAAD9/wAAAAAIAAUAAAD8/wAAAAAIAAUAAAD7/wAAAAAIAAUAAAD7////AAAIAAUAAAD7//7/AAAIAAUAAAD7//3/AAAIAAUAAAD7//z/AAAIAAUAAAD7//v/AAAIAAUAAAD6//v/AAAIAAUAAAD5//v/AAAIAAUAAAD4//v/AAAIAAUAAAD3//v/AAAIAAUAAAD2//v/AAAIAAUAAAD1//v/AAAIAAUAAAD0//v/AAAIAAUAAADz//v/AAAIAAUAAADy//v/AAAIAAUAAADx//v/AAAIAAUAAADw//v/AAAIAAUAAADv//v/AAAIAAUAAADu//v/AAAIAAUAAADt//v/AAAIAAUAAADs//v/AAAIAAUAAADr//v/AAAIAAUAAADq//v/AAAIAAUAAADp//v/AAAIAAUAAADp//z/AAAIAAUAAADp//3/AAAIAAUAAADp//7/AAAIAAUAAADp////AAAIAAUAAADp/wAAAAAIAAUAAADp/wEAAAAIAAUAAADp/wIAAAAIAAUAAADp/wMAAAAIAAUAAADp/wQAAAAIAAUAAADp/wUAAAAIAAUAAADp/wYAAAAIAAUAAADp/wcAAAAIAAUAAADp/wgAAAAIAAUAAADp/wkAAAAIAAUAAADp/woAAAAIAAUAAADp/wsAAAAIAAUAAADp/wwAAAAIAAUAAADp/w0AAAAIAAUAAADp/w4AAAAIAAUAAADp/w8AAAAIAAUAAADp/xAAAAAIAAUAAADq/xAAAAAIAAUAAADr/xAAAAAIAAUAAADs/xAAAAAIAAUAAADt/xAAAAAIAAUAAADu/xAAAAAIAAUAAADv/xAAAAAIAAUAAADw/xAAAAAIAAUAAADx/xAAAAAIAAUAAADy/xAAAAAIAAUAAADz/xAAAAAIAAUAAAD0/xAAAAAIAAUAAAD1/xAAAAAIAAUAAAD2/xAAAAAIAAUAAAD3/xAAAAAIAAUAAAD4/xAAAAAIAAUAAAABABAAAAAIAAUAAAACABAAAAAIAAUAAAADABAAAAAIAAUAAAD5/xAAAAAIAAUAAAD6/xAAAAAIAAUAAAD7/xAAAAAIAAUAAAD8/xAAAAAIAAUAAAD9/xAAAAAIAAUAAAD+/xAAAAAIAAUAAAD//xAAAAAIAAUAAAAAABAAAAAIAAUAAAAEABAAAAAIAAUAAAAFABAAAAAIAAUAAAAGABAAAAAIAAUAAAAHABAAAAAIAAUAAAAIABAAAAAIAAUAAAAJABAAAAAIAAUAAAAKABAAAAAIAAUAAAALABAAAAAIAAUAAAAMABAAAAAIAAUAAAANABAAAAAIAAUAAAAOABAAAAAIAAUAAAAPABAAAAAIAAUAAAAQABAAAAAIAAUAAAARABAAAAAIAAUAAAASABAAAAAIAAUAAAATABAAAAAIAAUAAAAUABAAAAAIAAUAAAAUAA8AAAAIAAUAAAAUAA4AAAAIAAUAAAAUAA0AAAAIAAUAAAAUAAwAAAAIAAUAAAATAAwAAAAIAAUAAAASAAwAAAAIAAUAAAARAAwAAAAIAAUAAAAQAAwAAAAIAAUAAAAPAAwAAAAIAAUAAAAOAAwAAAAIAAUAAAANAAwAAAAIAAUAAAAMAAwAAAAIAAUAAAALAAwAAAAIAAUAAAAGAAAAAAAIAAUAAAAHAAAAAAAIAAUAAAAIAAAAAAAIAAUAAAAJAAAAAAAIAAUAAAAKAAAAAAAIAAUAAAALAAAAAAAIAAUAAAAMAAAAAAAIAAUAAAANAAAAAAAIAAUAAAAOAAAAAAAIAAUAAAAPAAAAAAAIAAUAAAAQAAAAAAAIAAUAAAARAAAAAAAIAAUAAAD9//n/AAAHAA0AAAD+//n/AAAIAAsAAAD///n/AAAIAAsAAAAAAPn/AAAIAAsAAAABAPn/AAAIAAsAAAACAPn/AAAIAAsAAAADAPn/AAAIAAsAAAAEAPn/AAAIAAsAAAAFAPn/AAAIAAsAAAAGAPn/AAAIAAsAAAAHAPn/AAAIAAsAAAAIAPn/AAAIAAsAAAAJAPn/AAAIAAsAAAD9//j/AAAIAAsAAHD9//f/AAAIAAsAAHD9//b/AAAIAAsAAHA=")
 tile_set = SubResource("TileSet_20ill")
 
 [node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("wrap_box") instance=ExtResource("2_y8swa")]
-position = Vector2(94, -24)
+position = Vector2(230, -8)
 speed = 100.0
 wrap_box = NodePath("../WrapBox")
 
 [node name="WrapBox" parent="." unique_id=902000330 node_paths=PackedStringArray("boundary_crossers") instance=ExtResource("3_01qd5")]
-scale = Vector2(664, 401)
+position = Vector2(-26, 54)
+scale = Vector2(978, 654)
 boundary_crossers = [NodePath("../Player")]
 
-[node name="SceneTransitionPortal" parent="." unique_id=2119581961 instance=ExtResource("5_kfirg")]
-position = Vector2(48, -28)
+[node name="SceneTransitionPortal" parent="." unique_id=2119581961 node_paths=PackedStringArray("player") instance=ExtResource("5_kfirg")]
+position = Vector2(-23, -11)
+scene_to_transition_to = ExtResource("7_8g4pe")
+distance = 1000.0
+player = NodePath("../Player")
 portal_id = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="SceneTransitionPortal" unique_id=1564256140]
-visible = false
-material = SubResource("ShaderMaterial_o2fgy")
-texture = SubResource("ViewportTexture_20ill")
-
-[node name="SubViewport" type="SubViewport" parent="." unique_id=146016139]
-canvas_item_default_texture_filter = 0
-size = Vector2i(1920, 1080)
-
-[node name="TestLevel2" parent="SubViewport" unique_id=651962355 instance=ExtResource("7_8g4pe")]
