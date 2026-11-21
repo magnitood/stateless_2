@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4sfs3ns6o5xu"]
 
 [ext_resource type="Script" uid="uid://cr1cik7l782rs" path="res://entities/player.gd" id="1_merdl"]
-[ext_resource type="Texture2D" uid="uid://c8vrq87dhuupm" path="res://monochrome_tilemap_transparent.png" id="2_b0kkn"]
+[ext_resource type="Texture2D" uid="uid://c8vrq87dhuupm" path="res://assets/monochrome_tilemap_transparent.png" id="2_b0kkn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qly61"]
 atlas = ExtResource("2_b0kkn")
@@ -13,10 +13,11 @@ size = Vector2(2, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndewu"]
 size = Vector2(0, 0)
 
-[node name="Player" type="CharacterBody2D" unique_id=1734533852]
+[node name="Player" type="CharacterBody2D" unique_id=1734533852 groups=["player"]]
 z_index = 2
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_merdl")
-speed = 10.0
+speed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1551144111]
 texture = SubResource("AtlasTexture_qly61")
@@ -27,7 +28,7 @@ shape = SubResource("RectangleShape2D_20ill")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1377112153]
 ignore_rotation = false
-zoom = Vector2(10, 10)
+zoom = Vector2(6, 6)
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0
 

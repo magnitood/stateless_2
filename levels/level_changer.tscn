@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://2y3w28n7bf8o"]
+
+[ext_resource type="Texture2D" uid="uid://rnmvbksngmt6" path="res://assets/icon.svg" id="1_0ytex"]
+[ext_resource type="Script" uid="uid://bw43cogfpbop6" path="res://levels/level_changer.gd" id="1_tg0y1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_044e1"]
+size = Vector2(123, 122)
+
+[node name="level_changer" type="Node2D" unique_id=1418592868 groups=["level_changer"]]
+scale = Vector2(0.08, 0.08)
+script = ExtResource("1_tg0y1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1176209851]
+texture = ExtResource("1_0ytex")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1196777961]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=315557946]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_044e1")
+
+[node name="teleport" type="Node2D" parent="." unique_id=271773919]
+position = Vector2(0, -75)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

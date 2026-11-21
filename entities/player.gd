@@ -109,6 +109,7 @@ func get_right_gravity(current: GravityDirection) -> GravityDirection:
 
 func get_nearest_wall_gravity() -> GravityDirection:
     if $LeftRayCast.is_colliding() and $RightRayCast.is_colliding():
+        SoundManager.play_shift()
         var left_point: Vector2 = abs($LeftRayCast.get_collision_point() - position)
         var right_point: Vector2 = abs($RightRayCast.get_collision_point() - position)
         if left_point < right_point:
@@ -116,8 +117,10 @@ func get_nearest_wall_gravity() -> GravityDirection:
         else:
             return get_right_gravity(current_gravity_direction)
     elif $LeftRayCast.is_colliding():
+        SoundManager.play_shift()
         return get_left_gravity(current_gravity_direction)
     elif $RightRayCast.is_colliding():
+        SoundManager.play_shift()
         return get_right_gravity(current_gravity_direction)
 
     return current_gravity_direction

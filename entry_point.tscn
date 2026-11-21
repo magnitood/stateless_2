@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://kt4ghssvggco"]
 
-[ext_resource type="PackedScene" uid="uid://bsn41qm76eafs" path="res://ui/main_menu.tscn" id="2_ny5dk"]
+[ext_resource type="PackedScene" uid="uid://dapsx3sbw8a2k" path="res://ui/main_menu.tscn" id="1_h8jua"]
 
 [node name="EntryPoint" type="CanvasLayer" unique_id=822056461]
 metadata/_edit_horizontal_guides_ = [-672.0]
 
-[node name="MainMenu" parent="." unique_id=1067664374 instance=ExtResource("2_ny5dk")]
+[node name="MainMenu" parent="." unique_id=1067664374 instance=ExtResource("1_h8jua")]

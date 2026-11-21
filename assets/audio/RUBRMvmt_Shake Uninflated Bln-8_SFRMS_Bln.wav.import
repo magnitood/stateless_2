@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bi60jtw8w67qk"
+path="res://.godot/imported/RUBRMvmt_Shake Uninflated Bln-8_SFRMS_Bln.wav-a8cea2025667477e86c95c640a03b8de.sample"
+
+[deps]
+
+source_file="res://assets/audio/RUBRMvmt_Shake Uninflated Bln-8_SFRMS_Bln.wav"
+dest_files=["res://.godot/imported/RUBRMvmt_Shake Uninflated Bln-8_SFRMS_Bln.wav-a8cea2025667477e86c95c640a03b8de.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

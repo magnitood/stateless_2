@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dp8p3jjt23jrn"]
 
 [ext_resource type="Script" uid="uid://bdpaqlx56k7sb" path="res://entities/scene_transition_portal.gd" id="1_g0q8t"]
-[ext_resource type="Texture2D" uid="uid://cyyicy4ju6a38" path="res://portal.png" id="2_ndewu"]
+[ext_resource type="Texture2D" uid="uid://cyyicy4ju6a38" path="res://assets/portal.png" id="2_ndewu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4nu81"]
 
@@ -16,7 +16,6 @@ size = Vector2(4, 23)
 [node name="SceneTransitionPortal" type="StaticBody2D" unique_id=1594915822]
 script = ExtResource("1_g0q8t")
 distance = 200.0
-flip = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1175493468]
 position = Vector2(0, -5)

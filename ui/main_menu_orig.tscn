@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bsn41qm76eafs"]
+
+[ext_resource type="Script" uid="uid://b5fys33aqux2" path="res://ui/main_menu_orig.gd" id="1_0dkrt"]
+[ext_resource type="Shader" uid="uid://vq4kh2xlwjsh" path="res://ui/main_menu_orig.gdshader" id="1_t7e0r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xq6oq"]
+shader = ExtResource("1_t7e0r")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ik8p1"]
+
+[node name="MainMenu" type="Control" unique_id=1067664374]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0dkrt")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1397664013]
+material = SubResource("ShaderMaterial_xq6oq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_ik8p1")
+
+[node name="Button" type="Button" parent="." unique_id=405073616]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start Game"
+icon_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

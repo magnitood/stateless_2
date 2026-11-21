@@ -2,6 +2,7 @@ class_name Level
 extends Node2D
 
 @export var wrap_box: WrapBox
+@export var level_no: int
 
 func get_portal(id: int) -> SceneTransitionPortal:
     for c: Node in get_children():

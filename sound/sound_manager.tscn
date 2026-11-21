@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cx74xx71xcssq"]
+
+[ext_resource type="Script" uid="uid://cys6o7ql1jsbv" path="res://sound/sound_manager.gd" id="1_mtwir"]
+[ext_resource type="AudioStream" uid="uid://c1v3fn6ppg65v" path="res://assets/audio/stateless 2 menu.mp3" id="2_gocuh"]
+[ext_resource type="AudioStream" uid="uid://ble2dnpr3q7xe" path="res://assets/audio/impact.mp3" id="3_cwn3i"]
+[ext_resource type="AudioStream" uid="uid://maiyk6cagkg5" path="res://assets/audio/shift.mp3" id="4_se6ak"]
+[ext_resource type="AudioStream" uid="uid://dq0aotyk7yicg" path="res://assets/audio/hover.mp3" id="5_m2567"]
+[ext_resource type="AudioStream" uid="uid://cy0h4ayh6v4nf" path="res://assets/audio/select.mp3" id="6_k7dev"]
+[ext_resource type="AudioStream" uid="uid://ugdsvrdb324a" path="res://assets/audio/switch.mp3" id="7_1wubn"]
+[ext_resource type="AudioStream" uid="uid://c44byff0jwe60" path="res://assets/audio/door.mp3" id="8_60axa"]
+
+[node name="SoundManager" type="Node2D" unique_id=1108968366]
+script = ExtResource("1_mtwir")
+
+[node name="menu" type="AudioStreamPlayer" parent="." unique_id=1353228055]
+stream = ExtResource("2_gocuh")
+volume_db = -7.429
+autoplay = true
+
+[node name="impact" type="AudioStreamPlayer" parent="." unique_id=2081701560]
+stream = ExtResource("3_cwn3i")
+
+[node name="shift" type="AudioStreamPlayer" parent="." unique_id=767464362]
+stream = ExtResource("4_se6ak")
+
+[node name="hover" type="AudioStreamPlayer" parent="." unique_id=2126459551]
+stream = ExtResource("5_m2567")
+
+[node name="select" type="AudioStreamPlayer" parent="." unique_id=1877304117]
+stream = ExtResource("6_k7dev")
+
+[node name="switch" type="AudioStreamPlayer" parent="." unique_id=1814129667]
+stream = ExtResource("7_1wubn")
+
+[node name="door" type="AudioStreamPlayer" parent="." unique_id=2103416981]
+stream = ExtResource("8_60axa")
+volume_db = 4.0

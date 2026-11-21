@@ -2,8 +2,8 @@
 class_name WrapBox
 extends Area2D
 
-@export var boundary_crossers: Array[Node2D] = []
-@export var disable_mirroring: bool = false
+# @export var boundary_crossers: Array[Node2D] = []
+# @export var disable_mirroring: bool = false
 
 var array_of_sprite_list: Array[Array] = []
 
@@ -21,7 +21,7 @@ var offsets: Array[Vector2] = [
 func _ready() -> void:
     $CollisionShape2D.disabled = true
     assert(get_parent() is CanvasItem)
-    if Engine.is_editor_hint() or disable_mirroring:
+    if Engine.is_editor_hint():
         return
 
     var rect: Rect2 = get_rect()
@@ -38,26 +38,32 @@ func _ready() -> void:
     viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
     viewport.canvas_item_default_texture_repeat = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_ENABLED
 
+    var player: Player = get_tree().get_first_node_in_group("player")
     var viewport_texture: Texture2D = viewport.get_texture()
 
+    # player.set_deferred("visible", false)
+    player.visible = false
     get_parent().add_child.call_deferred(viewport)
     for offset in offsets:
         get_parent().add_child.call_deferred(make_sprite(position + offset*rect.size, viewport_texture))
 
-    # TODO: make this a function
-    for bc in boundary_crossers:
-        var detected_sprite: Sprite2D
-        for child in bc.get_children():
-            if child is Sprite2D:
-                detected_sprite = child
-                break
+    await RenderingServer.frame_post_draw
+    player.visible = true
 
-        var sprites: Array[Sprite2D] = []
-        for offset in offsets:
-            var new_sprite: Sprite2D = detected_sprite.duplicate()
-            get_parent().add_child.call_deferred(new_sprite)
-            sprites.append(new_sprite)
-        array_of_sprite_list.append(sprites)
+    # TODO: make this a function
+    # for bc in boundary_crossers:
+    #     var detected_sprite: Sprite2D
+    #     for child in bc.get_children():
+    #         if child is Sprite2D:
+    #             detected_sprite = child
+    #             break
+
+    #     var sprites: Array[Sprite2D] = []
+    #     for offset in offsets:
+    #         var new_sprite: Sprite2D = detected_sprite.duplicate()
+    #         get_parent().add_child.call_deferred(new_sprite)
+    #         sprites.append(new_sprite)
+    #     array_of_sprite_list.append(sprites)
 
 
 func _process(_delta: float) -> void:
@@ -65,16 +71,16 @@ func _process(_delta: float) -> void:
     scale.y = -scale.y if scale.y < 0 else scale.y
     scale = floor(scale)
 
-    if Engine.is_editor_hint() or disable_mirroring:
+    if Engine.is_editor_hint():# or disable_mirroring:
         return
 
-    assert(boundary_crossers.size() == array_of_sprite_list.size())
-    var rect: Rect2 = get_rect()
-    for i in array_of_sprite_list.size():
-        var sprite_list: Array[Sprite2D] = array_of_sprite_list[i]
-        for j in offsets.size():
-            sprite_list[j].position = boundary_crossers[i].position + offsets[j]*rect.size
-            sprite_list[j].rotation = boundary_crossers[i].rotation
+    # assert(boundary_crossers.size() == array_of_sprite_list.size())
+    # var rect: Rect2 = get_rect()
+    # for i in array_of_sprite_list.size():
+    #     var sprite_list: Array[Sprite2D] = array_of_sprite_list[i]
+    #     for j in offsets.size():
+    #         sprite_list[j].position = boundary_crossers[i].position + offsets[j]*rect.size
+    #         sprite_list[j].rotation = boundary_crossers[i].rotation
 
 
 @warning_ignore("shadowed_variable_base_class")
@@ -95,5 +101,5 @@ func make_sprite(
     sprite.position = pos
     sprite.texture = texture
     sprite.scale /= get_viewport().get_camera_2d().zoom
-    sprite.z_index = -1
+    # sprite.z_index = -1
     return sprite
