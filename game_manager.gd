@@ -4,8 +4,8 @@ var portal_connections: Dictionary
 
 var player: CharacterBody2D
 
-const TEST_TILEMAP = preload("res://levels/test_tilemap.tscn")
-const TEST_LEVEL_2 = preload("res://levels/test_level2.tscn")
+const TEST_TILEMAP_ME = preload("res://levels/test_tilemap_me.tscn")
+const TEST_LEVEL_2_ME = preload("res://levels/test_level2_me.tscn")
 
 func _ready() -> void:
     pass
@@ -16,9 +16,9 @@ func start_game() -> void:
 func set_level(prev:int, next:int) -> void:
     match next:
         1:
-            get_tree().change_scene_to_packed(TEST_TILEMAP)
+            get_tree().change_scene_to_packed(TEST_TILEMAP_ME)
         2:
-            get_tree().change_scene_to_packed(TEST_LEVEL_2)
+            get_tree().change_scene_to_packed(TEST_LEVEL_2_ME)
         _:
             assert(false, "Unreachable")
 

@@ -10,8 +10,13 @@ region = Rect2(119, 17, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20ill"]
 size = Vector2(2, 2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndewu"]
+size = Vector2(0, 0)
+
 [node name="Player" type="CharacterBody2D" unique_id=1734533852]
+z_index = 2
 script = ExtResource("1_merdl")
+speed = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1551144111]
 texture = SubResource("AtlasTexture_qly61")
@@ -22,17 +27,23 @@ shape = SubResource("RectangleShape2D_20ill")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1377112153]
 ignore_rotation = false
-zoom = Vector2(6, 6)
+zoom = Vector2(10, 10)
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0
 
 [node name="LeftRayCast" type="RayCast2D" parent="." unique_id=689849068]
-position = Vector2(0, 8)
+position = Vector2(0, 6)
 target_position = Vector2(-20, 0)
 
 [node name="RightRayCast" type="RayCast2D" parent="." unique_id=517183756]
-position = Vector2(0, 8)
+position = Vector2(0, 6)
 target_position = Vector2(20, 0)
 
 [node name="PlayerFoot" type="Node2D" parent="." unique_id=1905620956]
-position = Vector2(0, 8)
+
+[node name="TeleporterCollider" type="Area2D" parent="." unique_id=545956372]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TeleporterCollider" unique_id=1844338604]
+shape = SubResource("RectangleShape2D_ndewu")

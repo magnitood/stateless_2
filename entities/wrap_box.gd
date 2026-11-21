@@ -44,6 +44,7 @@ func _ready() -> void:
     for offset in offsets:
         get_parent().add_child.call_deferred(make_sprite(position + offset*rect.size, viewport_texture))
 
+    # TODO: make this a function
     for bc in boundary_crossers:
         var detected_sprite: Sprite2D
         for child in bc.get_children():

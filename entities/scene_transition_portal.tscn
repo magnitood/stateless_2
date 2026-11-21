@@ -1,35 +1,75 @@
 [gd_scene format=3 uid="uid://dp8p3jjt23jrn"]
 
 [ext_resource type="Script" uid="uid://bdpaqlx56k7sb" path="res://entities/scene_transition_portal.gd" id="1_g0q8t"]
-[ext_resource type="Texture2D" uid="uid://c8vrq87dhuupm" path="res://monochrome_tilemap_transparent.png" id="2_eay2k"]
+[ext_resource type="Texture2D" uid="uid://cyyicy4ju6a38" path="res://portal.png" id="2_ndewu"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0dkrt"]
-atlas = ExtResource("2_eay2k")
-region = Rect2(68, 153, 16, 33)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4nu81"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_20ill"]
-size = Vector2(32, 26)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_til44"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfirg"]
-size = Vector2(2, 26)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ik8p1"]
+size = Vector2(24, 23)
 
-[node name="SceneTransitionPortal" type="Node2D" unique_id=2119581961]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xq6oq"]
+size = Vector2(4, 23)
+
+[node name="SceneTransitionPortal" type="StaticBody2D" unique_id=1594915822]
 script = ExtResource("1_g0q8t")
+distance = 200.0
+flip = null
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1175493468]
-position = Vector2(0, 1.937151e-07)
-scale = Vector2(1, 0.78787875)
-texture = SubResource("AtlasTexture_0dkrt")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1175493468]
+position = Vector2(0, -5)
+texture = ExtResource("2_ndewu")
 
-[node name="TransitionArea" type="Area2D" parent="." unique_id=1683283691]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TransitionArea" unique_id=1010932610]
-shape = SubResource("RectangleShape2D_20ill")
-
-[node name="TeleportArea" type="Area2D" parent="." unique_id=1899135583]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportArea" unique_id=205287173]
-shape = SubResource("RectangleShape2D_kfirg")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1716640941]
+scale = Vector2(-1, 1)
+polygon = PackedVector2Array(-1, -13, 1, -13, 1, -12, 0, -12, 0, 11, -1, 11)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1734670559]
 zoom = Vector2(4, 4)
+
+[node name="Top" type="Node2D" parent="." unique_id=1786535649]
+position = Vector2(0, -13)
+
+[node name="Bottom" type="Node2D" parent="." unique_id=451385452]
+position = Vector2(0, 11)
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=9722822]
+visible = false
+antialiased = true
+polygon = PackedVector2Array(0, -13, -200, -114.960785, -200, 13, 0, 13)
+
+[node name="LoadSceneRegion" type="Area2D" parent="." unique_id=1913311820]
+visible = false
+scale = Vector2(14, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoadSceneRegion" unique_id=306792988]
+shape = SubResource("RectangleShape2D_4nu81")
+
+[node name="ViewActivationRegion" type="Area2D" parent="." unique_id=1998662184]
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewActivationRegion" unique_id=1654686401]
+shape = SubResource("RectangleShape2D_til44")
+
+[node name="CollisionDisableRegion" type="Area2D" parent="." unique_id=1371982651]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDisableRegion" unique_id=975561331]
+position = Vector2(11, -0.5)
+shape = SubResource("RectangleShape2D_ik8p1")
+
+[node name="TeleportRegion" type="Area2D" parent="." unique_id=2017755936]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportRegion" unique_id=899834952]
+position = Vector2(-2, -0.5)
+shape = SubResource("RectangleShape2D_xq6oq")
+
+[connection signal="body_entered" from="LoadSceneRegion" to="." method="_on_load_scene_region_body_entered"]
+[connection signal="body_entered" from="ViewActivationRegion" to="." method="_on_view_activation_region_body_entered"]
+[connection signal="body_exited" from="ViewActivationRegion" to="." method="_on_view_activation_region_body_exited"]
+[connection signal="body_entered" from="CollisionDisableRegion" to="." method="_on_collision_disable_region_body_entered"]
+[connection signal="body_exited" from="CollisionDisableRegion" to="." method="_on_collision_disable_region_body_exited"]
+[connection signal="area_entered" from="TeleportRegion" to="." method="_on_teleport_region_area_entered"]
