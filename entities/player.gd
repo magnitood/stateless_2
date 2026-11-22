@@ -58,6 +58,7 @@ func _physics_process(delta: float) -> void:
 
     var movement: Vector2
     movement.x = Input.get_action_strength("right") - Input.get_action_strength("left")
+    movement.x = -1
     movement.y = Input.get_action_strength("jump") if is_on_floor() else 1.5
     if !is_on_floor() and Input.is_action_pressed("down"):
         movement.y *= 1.5

@@ -73,4 +73,3 @@ shape = SubResource("RectangleShape2D_xq6oq")
 [connection signal="body_exited" from="ViewActivationRegion" to="." method="_on_view_activation_region_body_exited"]
 [connection signal="body_entered" from="CollisionDisableRegion" to="." method="_on_collision_disable_region_body_entered"]
 [connection signal="body_exited" from="CollisionDisableRegion" to="." method="_on_collision_disable_region_body_exited"]
-[connection signal="area_entered" from="TeleportRegion" to="." method="_on_teleport_region_area_entered"]

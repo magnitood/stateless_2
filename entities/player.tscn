@@ -29,7 +29,7 @@ shape = SubResource("RectangleShape2D_20ill")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1377112153]
 ignore_rotation = false
-zoom = Vector2(6, 6)
+zoom = Vector2(3, 3)
 process_callback = 0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0

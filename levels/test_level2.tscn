@@ -1126,7 +1126,7 @@ tile_map_data = PackedByteArray("AAC8//f/BgAHAAIAAADE//f/BgAIAAIAAADE/+7/BgAIAAE
 tile_set = SubResource("TileSet_yeqau")
 
 [node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("wrap_box") instance=ExtResource("4_hpmv1")]
-position = Vector2(-521, -3)
+position = Vector2(-465, -19)
 wrap_box = NodePath("../WrapBox")
 
 [node name="WrapBox" parent="." unique_id=902000330 instance=ExtResource("5_hiufh")]

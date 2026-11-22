@@ -23,6 +23,8 @@ var thread_started: bool = false
 
 @export var flip: bool = false
 
+var was_on_entry_side: bool = false
+
 func _ready() -> void:
     if Engine.is_editor_hint():
         if self == get_tree().edited_scene_root:
@@ -47,6 +49,8 @@ func _ready() -> void:
 
     add_child.call_deferred(viewport)
 
+    process_physics_priority = 100
+
     assert(portal_id != 0)
 
 
@@ -54,12 +58,18 @@ func _process(_delta: float) -> void:
     if Engine.is_editor_hint():
         return
 
+    update_polygon_shape()
+
+
+func update_polygon_shape() -> void:
     if player:
         refresh_polygon()
         var poly: PackedVector2Array = $Polygon2D.polygon
         var pt: Vector2 = position + $Top.position - (player.foot.position + player.position)
         var pb: Vector2 = position + $Bottom.position - (player.foot.position + player.position)
-        var d: float = -distance if player.position.x > position.x else distance
+        # var d: float = -distance if player.position.x > position.x else distance
+
+        var d: float = distance if flip else -distance
 
         poly[0] = $Top.position
         poly[1] = $Top.position + pt.normalized()*(d/pt.normalized().x)
@@ -67,12 +77,12 @@ func _process(_delta: float) -> void:
         poly[3] = $Bottom.position
         $Polygon2D.polygon = poly
 
+
 func _physics_process(_delta: float) -> void:
     assert($Camera2D.zoom.x == $Camera2D.zoom.y)
     if Engine.is_editor_hint():
         update_configuration_warnings()
         return
-
 
     if player_in_view_region:
         if thread_started:
@@ -81,6 +91,58 @@ func _physics_process(_delta: float) -> void:
         $Polygon2D.visible = true
     else:
         $Polygon2D.visible = false
+
+    if player and next_scene and _is_player_touching_teleport_region():
+        _teleport_player()
+
+func _is_player_touching_teleport_region() -> bool:
+    var portal_shape_node: CollisionShape2D = $TeleportRegion.get_node("CollisionShape2D")
+    if not portal_shape_node or not portal_shape_node.shape:
+        return false
+
+    for child: Node in player.get_children():
+        if child is Area2D and (child.collision_layer & $TeleportRegion.collision_mask) != 0:
+            for shape_child: Node in child.get_children():
+                if shape_child is CollisionShape2D and shape_child.shape and not shape_child.disabled:
+                    if portal_shape_node.shape.collide(
+                        portal_shape_node.global_transform,
+                        shape_child.shape,
+                        shape_child.global_transform
+                    ):
+                        return true
+    return false
+
+func _teleport_player() -> void:
+    if thread_started:
+        thread.wait_to_finish()
+        thread_started = false
+
+    var p: Player = player
+    var offset: Vector2 = player.position - position
+    var portal: SceneTransitionPortal = next_scene.get_portal(to_portal_id)
+    portal.collision_layer = 1 << 1
+
+    player = null
+
+    var from_scene: Level = get_parent()
+    var root: Node = from_scene.get_parent()
+    portal.next_scene = from_scene
+
+    viewport.remove_child(next_scene)
+    root.remove_child(from_scene)
+    root.add_child(next_scene)
+
+    next_scene.move_player_to_level(p, portal.position + offset)
+
+    p.camera.make_current()
+    # camera.make_current()
+    portal.viewport.add_child(from_scene)
+
+    portal.player = p
+    portal.player_in_view_region = true
+    portal.polygon.visible = true
+    portal.update_polygon_shape()
+    portal.refresh_polygon()
 
 func _generate_portal_id() -> int:
     var config: ConfigFile = ConfigFile.new()
@@ -145,53 +207,53 @@ func _on_collision_disable_region_body_exited(body: Node2D) -> void:
     if body is Player:
         collision_layer = 1
 
-func _on_teleport_region_area_entered(area: Area2D) -> void:
-    assert(next_scene != null)
-    if area.get_parent() is Player and player:
-        var offset: Vector2 = player.position-position
-        var portal: SceneTransitionPortal = next_scene.get_portal(to_portal_id)
-        portal.collision_layer = 1 << 1
-
-        # connect player to other scene
-        # the connecting is done in the other function
-        next_scene.move_player_to_level.call_deferred(player, portal.position+offset)
-        portal.player = player
-
-
-        # disconnect player from this scene
-        player = null
-
-        # change of scene (yes)
-        var parent1: Node = get_parent()
-        var root: Node = parent1.get_parent()
-        portal.next_scene = parent1
-
-        portal.player.camera.make_current()
-
-
-        var labmda: Callable = func() -> void:
-            viewport.remove_child(next_scene)
-            root.remove_child(parent1)
-            root.add_child(next_scene)
-            portal.viewport.add_child(parent1)
-            portal.player.camera.make_current()
-            portal.polygon.visible = true
-            portal.refresh_polygon()
-
-
-        labmda.call_deferred()
-
-        # portal.next_scene = get_parent()
-        # next_scene.move_player_to_level(player, Vector2(0, 0))
-        # portal.player = player
-        # viewport.remove_child(next_scene)
-        # get_tree().change_scene_to_node(next_scene)
-        # portal.camera.make_current()
+# func _on_teleport_region_area_entered(area: Area2D) -> void:
+#     assert(next_scene != null)
+#     if area.get_parent() is Player and player:
+#         var p: Player = player;
+#         var offset: Vector2 = player.position-position
+#         var portal: SceneTransitionPortal = next_scene.get_portal(to_portal_id)
+#         portal.collision_layer = 1 << 1
+# 
+#         player = null
+# 
+#         var labmda: Callable = func() -> void:
+#             var from_scene: Level = get_parent()
+#             var root: Node = from_scene.get_parent()
+#             portal.next_scene = from_scene
+# 
+#             viewport.remove_child(next_scene)
+#             root.remove_child(from_scene)
+#             root.add_child(next_scene)
+# 
+#             next_scene.move_player_to_level(p, portal.position+offset)
+# 
+#             p.camera.make_current()
+#             portal.viewport.add_child(from_scene)
+# 
+#             # portal.player.camera.make_current()
+# 
+#             portal.player = p
+#             portal.player_in_view_region = true
+#             portal.polygon.visible = true
+#             portal.update_polygon_shape()
+#             portal.refresh_polygon()
+# 
+#         labmda.call_deferred()
+# 
+#         # portal.next_scene = get_parent()
+#         # next_scene.move_player_to_level(player, Vector2(0, 0))
+#         # portal.player = player
+#         # viewport.remove_child(next_scene)
+#         # get_tree().change_scene_to_node(next_scene)
+#         # portal.camera.make_current()
 
 func refresh_polygon() -> void:
     viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
     viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
     var viewport_texture: Texture2D = viewport.get_texture()
+
     $Polygon2D.texture = viewport_texture
     $Polygon2D.texture_offset = viewport_texture.get_size()*0.5 / $Camera2D.zoom
     $Polygon2D.texture_scale = $Camera2D.zoom
