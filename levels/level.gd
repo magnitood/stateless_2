@@ -11,12 +11,8 @@ func get_portal(id: int) -> SceneTransitionPortal:
     return null
 
 func move_player_to_level(player: Player, pos: Vector2) -> void:
-    var lambda: Callable = func() -> void:
-        player.reparent(self)
-        player.position = pos
-        # wrap_box.boundary_crossers.append(player)
-        # wrap_box.array_of_sprite_list.append()
-        player.wrap_box = wrap_box
-        print(player.position)
-
-    lambda.call_deferred()
+    player.reparent(self)
+    player.position = pos
+    # wrap_box.boundary_crossers.append(player)
+    # wrap_box.array_of_sprite_list.append()
+    player.wrap_box = wrap_box

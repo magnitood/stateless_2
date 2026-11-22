@@ -14,10 +14,11 @@ size = Vector2(2, 2)
 size = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody2D" unique_id=1734533852 groups=["player"]]
+visibility_layer = 2
 z_index = 2
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_merdl")
-speed = 50.0
+speed = 100.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1551144111]
 texture = SubResource("AtlasTexture_qly61")
@@ -29,6 +30,7 @@ shape = SubResource("RectangleShape2D_20ill")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1377112153]
 ignore_rotation = false
 zoom = Vector2(6, 6)
+process_callback = 0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0
 

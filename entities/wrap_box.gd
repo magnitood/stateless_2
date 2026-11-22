@@ -31,24 +31,23 @@ func _ready() -> void:
     camera.position = position
 
     viewport.add_child(camera)
+    viewport.canvas_cull_mask ^= 2
     viewport.size = rect.size * get_viewport().get_camera_2d().zoom
     viewport.world_2d = get_parent().get_world_2d()
     viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+    # viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
     viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
     viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
     viewport.canvas_item_default_texture_repeat = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_ENABLED
 
-    var player: Player = get_tree().get_first_node_in_group("player")
-    var viewport_texture: Texture2D = viewport.get_texture()
 
     # player.set_deferred("visible", false)
-    player.visible = false
     get_parent().add_child.call_deferred(viewport)
-    for offset in offsets:
-        get_parent().add_child.call_deferred(make_sprite(position + offset*rect.size, viewport_texture))
 
     await RenderingServer.frame_post_draw
-    player.visible = true
+    var viewport_texture: Texture2D = viewport.get_texture()
+    for offset in offsets:
+        get_parent().add_child.call_deferred(make_sprite(position + offset*rect.size, viewport_texture))
 
     # TODO: make this a function
     # for bc in boundary_crossers:
@@ -64,6 +63,9 @@ func _ready() -> void:
     #         get_parent().add_child.call_deferred(new_sprite)
     #         sprites.append(new_sprite)
     #     array_of_sprite_list.append(sprites)
+
+func refresh_duplicates() -> void:
+    pass
 
 
 func _process(_delta: float) -> void:

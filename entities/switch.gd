@@ -5,10 +5,10 @@ extends Node2D
 @onready var collision_shape_2d: CollisionShape2D = $Area2D/CollisionShape2D
 
 func _on_area_2d_body_entered(body:CharacterBody2D) -> void:
-	if body is Player:
-		print("touching switch")
-		collision_shape_2d.set_deferred("disabled", true)
-		SoundManager.play_switch()
-		await SoundManager.switch.finished
-		door.open_thing -= 1
-		
+    if body is Player:
+        print("touching switch")
+        collision_shape_2d.set_deferred("disabled", true)
+        SoundManager.play_switch()
+        await SoundManager.switch.finished
+        door.open_thing -= 1
+        

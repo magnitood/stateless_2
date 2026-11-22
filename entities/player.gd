@@ -18,6 +18,7 @@ var default_up_direction: Vector2 = up_direction
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var foot: Node2D = $PlayerFoot
 @onready var default_zoom: Vector2 = $Camera2D.zoom
+@onready var camera: Camera2D = $Camera2D
 
 func physics_rotation(dir: GravityDirection) -> float:
     match dir:

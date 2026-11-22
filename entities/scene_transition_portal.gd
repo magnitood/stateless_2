@@ -15,6 +15,7 @@ var player_in_view_region: bool = false
 
 var viewport: SubViewport
 @onready var camera: Camera2D = $Camera2D
+@onready var polygon: Polygon2D = $Polygon2D
 
 var next_scene: Level
 @onready var thread: Thread = Thread.new()
@@ -39,7 +40,7 @@ func _ready() -> void:
         $TeleportRegion.scale = Vector2(-1, 1)
 
     viewport = SubViewport.new()
-    viewport.size = Vector2(1920, 1080)
+    viewport.size = get_viewport_rect().size
     viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
     viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
     viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
@@ -50,12 +51,15 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+    if Engine.is_editor_hint():
+        return
+
     if player:
+        refresh_polygon()
         var poly: PackedVector2Array = $Polygon2D.polygon
         var pt: Vector2 = position + $Top.position - (player.foot.position + player.position)
         var pb: Vector2 = position + $Bottom.position - (player.foot.position + player.position)
         var d: float = -distance if player.position.x > position.x else distance
-        # print(position, player.position)
 
         poly[0] = $Top.position
         poly[1] = $Top.position + pt.normalized()*(d/pt.normalized().x)
@@ -68,6 +72,7 @@ func _physics_process(_delta: float) -> void:
     if Engine.is_editor_hint():
         update_configuration_warnings()
         return
+
 
     if player_in_view_region:
         if thread_started:
@@ -112,12 +117,13 @@ func load_and_instantiate_next_scene() -> void:
         to_portal.camera.make_current()
         to_portal.next_scene = get_parent()
 
-        viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-        viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-        var viewport_texture: Texture2D = viewport.get_texture()
-        $Polygon2D.texture = viewport_texture
-        $Polygon2D.texture_offset = viewport_texture.get_size()*0.5 / $Camera2D.zoom
-        $Polygon2D.texture_scale = $Camera2D.zoom
+        refresh_polygon()
+        # viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+        # viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+        # var viewport_texture: Texture2D = viewport.get_texture()
+        # $Polygon2D.texture = viewport_texture
+        # $Polygon2D.texture_offset = viewport_texture.get_size()*0.5 / $Camera2D.zoom
+        # $Polygon2D.texture_scale = $Camera2D.zoom
 
     lambda.call_deferred()
 
@@ -145,30 +151,56 @@ func _on_teleport_region_area_entered(area: Area2D) -> void:
         var offset: Vector2 = player.position-position
         var portal: SceneTransitionPortal = next_scene.get_portal(to_portal_id)
         portal.collision_layer = 1 << 1
+
         # connect player to other scene
         # the connecting is done in the other function
-        next_scene.move_player_to_level(player, portal.position+offset)
+        next_scene.move_player_to_level.call_deferred(player, portal.position+offset)
         portal.player = player
+
 
         # disconnect player from this scene
         player = null
-        var parent_scene: Level = get_parent() as Level
-        parent_scene.wrap_box.boundary_crossers.clear()
-        parent_scene.wrap_box.array_of_sprite_list.clear()
 
         # change of scene (yes)
+        var parent1: Node = get_parent()
+        var root: Node = parent1.get_parent()
+        portal.next_scene = parent1
+
+        portal.player.camera.make_current()
+
+
         var labmda: Callable = func() -> void:
-            viewport.reparent(portal)
             viewport.remove_child(next_scene)
-            self.reparent(viewport)
+            root.remove_child(parent1)
+            root.add_child(next_scene)
+            portal.viewport.add_child(parent1)
+            portal.player.camera.make_current()
+            portal.polygon.visible = true
+            portal.refresh_polygon()
+
+
         labmda.call_deferred()
 
         # portal.next_scene = get_parent()
         # next_scene.move_player_to_level(player, Vector2(0, 0))
         # portal.player = player
-        #viewport.remove_child(next_scene)
-        #get_tree().change_scene_to_node(next_scene)
-        #portal.camera.make_current()
+        # viewport.remove_child(next_scene)
+        # get_tree().change_scene_to_node(next_scene)
+        # portal.camera.make_current()
+
+func refresh_polygon() -> void:
+    viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+    viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+    var viewport_texture: Texture2D = viewport.get_texture()
+    $Polygon2D.texture = viewport_texture
+    $Polygon2D.texture_offset = viewport_texture.get_size()*0.5 / $Camera2D.zoom
+    $Polygon2D.texture_scale = $Camera2D.zoom
+
+    # viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+    # viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+    # var viewport_texture: Texture2D = viewport.get_texture()
+    # $Polygon2D.texture = viewport_texture
+    # $Polygon2D.texture_offset = viewport_texture.get_size()*0.5 / $Camera2D.zoom
 
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray
@@ -178,5 +210,7 @@ func _get_configuration_warnings() -> PackedStringArray:
         warnings.append("Missing scene to transition to")
     if not camera:
         warnings.append("Missing Camera")
+    if to_portal_id == 0:
+        warnings.append("To portal id is 0")
 
     return warnings

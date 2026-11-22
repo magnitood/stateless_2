@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://4sfs3ns6o5xu" path="res://entities/player.tscn" id="4_hpmv1"]
 [ext_resource type="PackedScene" uid="uid://djvf2xarwyopv" path="res://entities/wrap_box.tscn" id="5_hiufh"]
 [ext_resource type="PackedScene" uid="uid://2y3w28n7bf8o" path="res://levels/level_changer.tscn" id="6_gborv"]
+[ext_resource type="PackedScene" uid="uid://dp8p3jjt23jrn" path="res://entities/scene_transition_portal.tscn" id="7_yeqau"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3txii"]
 texture = ExtResource("2_yeqau")
@@ -1125,7 +1126,7 @@ tile_map_data = PackedByteArray("AAC8//f/BgAHAAIAAADE//f/BgAIAAIAAADE/+7/BgAIAAE
 tile_set = SubResource("TileSet_yeqau")
 
 [node name="Player" parent="." unique_id=1734533852 node_paths=PackedStringArray("wrap_box") instance=ExtResource("4_hpmv1")]
-position = Vector2(-442, -3)
+position = Vector2(-521, -3)
 wrap_box = NodePath("../WrapBox")
 
 [node name="WrapBox" parent="." unique_id=902000330 instance=ExtResource("5_hiufh")]
@@ -1135,3 +1136,10 @@ scale = Vector2(377, 231)
 [node name="level_changer" parent="." unique_id=1418592868 instance=ExtResource("6_gborv")]
 position = Vector2(-295, -79)
 next_level = 2
+
+[node name="SceneTransitionPortal" parent="." unique_id=1594915822 node_paths=PackedStringArray("player") instance=ExtResource("7_yeqau")]
+position = Vector2(-525, -10)
+scene_to_transition_to_path = "uid://coy8e5t5lg6vc"
+player = NodePath("../Player")
+portal_id = 4
+to_portal_id = 5
