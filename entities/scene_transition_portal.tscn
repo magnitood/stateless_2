@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dp8p3jjt23jrn"]
 
 [ext_resource type="Script" uid="uid://bdpaqlx56k7sb" path="res://entities/scene_transition_portal.gd" id="1_g0q8t"]
-[ext_resource type="Texture2D" uid="uid://cyyicy4ju6a38" path="res://assets/portal.png" id="2_ndewu"]
+[ext_resource type="Texture2D" uid="uid://dff81ki4wbdeo" path="res://assets/entities/scene_transition1.png" id="2_ndewu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4nu81"]
 
@@ -18,11 +18,11 @@ script = ExtResource("1_g0q8t")
 distance = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1175493468]
-position = Vector2(0, -5)
+position = Vector2(0, -1)
 texture = ExtResource("2_ndewu")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1716640941]
-polygon = PackedVector2Array(-1, -13, 1, -13, 1, -12, 0, -12, 0, 11, -1, 11)
+polygon = PackedVector2Array(-2, -12, 0, -12, 0, 11, -2, 11)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1734670559]
 zoom = Vector2(4, 4)

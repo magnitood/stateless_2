@@ -452,4 +452,3 @@ scene_to_transition_to_path = "uid://yan4br6vvp4g"
 player = NodePath("../Player")
 portal_id = 3
 to_portal_id = 1
-flip = true

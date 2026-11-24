@@ -21,9 +21,8 @@ var next_scene: Level
 @onready var thread: Thread = Thread.new()
 var thread_started: bool = false
 
-@export var flip: bool = false
-
-var was_on_entry_side: bool = false
+@export var flip_x: bool = false
+@export var flip_y: bool = false
 
 func _ready() -> void:
     if Engine.is_editor_hint():
@@ -35,11 +34,17 @@ func _ready() -> void:
             notify_property_list_changed()
         return
 
-    if flip:
-        $Sprite2D.scale = Vector2(-1, 1)
-        $CollisionPolygon2D.scale = Vector2(-1, 1)
-        $CollisionDisableRegion.scale = Vector2(-1, 1)
-        $TeleportRegion.scale = Vector2(-1, 1)
+    if flip_x:
+        $Sprite2D.scale.x = -1
+        $CollisionPolygon2D.scale.x = -1
+        $CollisionDisableRegion.scale.x = -1
+        $TeleportRegion.scale.x = -1
+
+    if flip_y:
+        $Sprite2D.scale.y = -1
+        $CollisionPolygon2D.scale.y = -1
+        $CollisionDisableRegion.scale.y = -1
+        $TeleportRegion.scale.y = -1
 
     viewport = SubViewport.new()
     viewport.size = get_viewport_rect().size
@@ -63,17 +68,17 @@ func _process(_delta: float) -> void:
 
 func update_polygon_shape() -> void:
     if player:
-        refresh_polygon()
         var poly: PackedVector2Array = $Polygon2D.polygon
-        var pt: Vector2 = position + $Top.position - (player.foot.position + player.position)
-        var pb: Vector2 = position + $Bottom.position - (player.foot.position + player.position)
-        # var d: float = -distance if player.position.x > position.x else distance
 
-        var d: float = distance if flip else -distance
+        var local_foot: Vector2 = to_local(player.foot.global_position)
+        var pt: Vector2 = $Top.position - local_foot
+        var pb: Vector2 = $Bottom.position - local_foot
+
+        var d: float = distance if flip_x else -distance
 
         poly[0] = $Top.position
-        poly[1] = $Top.position + pt.normalized()*(d/pt.normalized().x)
-        poly[2] = $Bottom.position + pb.normalized()*(d/pb.normalized().x)
+        poly[1] = $Top.position + (pt * (d / pt.x) if not is_zero_approx(pt.x) else Vector2(d, 0.0))
+        poly[2] = $Bottom.position + (pb * (d / pb.x) if not is_zero_approx(pb.x) else Vector2(d, 0.0))
         poly[3] = $Bottom.position
         $Polygon2D.polygon = poly
 
@@ -96,20 +101,16 @@ func _physics_process(_delta: float) -> void:
         _teleport_player()
 
 func _is_player_touching_teleport_region() -> bool:
-    var portal_shape_node: CollisionShape2D = $TeleportRegion.get_node("CollisionShape2D")
-    if not portal_shape_node or not portal_shape_node.shape:
-        return false
+    var portal_collision_shape: CollisionShape2D = $TeleportRegion/CollisionShape2D
+    var teleport_collider_shape: CollisionShape2D = player.teleport_collider
 
-    for child: Node in player.get_children():
-        if child is Area2D and (child.collision_layer & $TeleportRegion.collision_mask) != 0:
-            for shape_child: Node in child.get_children():
-                if shape_child is CollisionShape2D and shape_child.shape and not shape_child.disabled:
-                    if portal_shape_node.shape.collide(
-                        portal_shape_node.global_transform,
-                        shape_child.shape,
-                        shape_child.global_transform
-                    ):
-                        return true
+    if portal_collision_shape.shape.collide(
+        portal_collision_shape.global_transform,
+        teleport_collider_shape.shape,
+        teleport_collider_shape.global_transform
+    ):
+        return true
+
     return false
 
 func _teleport_player() -> void:
@@ -139,6 +140,7 @@ func _teleport_player() -> void:
     portal.viewport.add_child(from_scene)
 
     portal.player = p
+
     portal.player_in_view_region = true
     portal.polygon.visible = true
     portal.update_polygon_shape()

@@ -19,6 +19,7 @@ var default_up_direction: Vector2 = up_direction
 @onready var foot: Node2D = $PlayerFoot
 @onready var default_zoom: Vector2 = $Camera2D.zoom
 @onready var camera: Camera2D = $Camera2D
+@onready var teleport_collider: CollisionShape2D = $TeleporterCollider/CollisionShape2D
 
 func physics_rotation(dir: GravityDirection) -> float:
     match dir:
@@ -43,12 +44,12 @@ func _physics_process(delta: float) -> void:
     up_direction = default_up_direction.rotated(rotation)
 
     # TODO: make this log zoom
-    var zoom_duration_sec: float = 0.25
-    var t: float = delta/zoom_duration_sec
-    if Input.is_action_pressed("down"):
-        $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom - Vector2(1.5, 1.5), t)
-    else:
-        $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom, t)
+    # var zoom_duration_sec: float = 0.25
+    # var t: float = delta/zoom_duration_sec
+    # if Input.is_action_pressed("down"):
+    #     $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom - Vector2(1.5, 1.5), t)
+    # else:
+    #     $Camera2D.zoom = $Camera2D.zoom.move_toward(default_zoom, t)
 
 
     # $Camera2D.rotation     = rotation
@@ -58,7 +59,8 @@ func _physics_process(delta: float) -> void:
 
     var movement: Vector2
     movement.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-    movement.y = Input.get_action_strength("jump") if is_on_floor() else 1.5
+    # movement.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+    # movement.y = Input.get_action_strength("jump") if is_on_floor() else 1.5
     if !is_on_floor() and Input.is_action_pressed("down"):
         movement.y *= 1.5
 

@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://brgyh5xqomlj"]
 
 [ext_resource type="Script" uid="uid://dkm7qkoqd7x7j" path="res://entities/door.gd" id="1_3fqlw"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_044e1"]
-size = Vector2(2, 24)
+[ext_resource type="Texture2D" uid="uid://byjsjv84wofoq" path="res://assets/entities/door.png" id="2_k4wox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xekmd"]
 size = Vector2(2, 24)
@@ -12,7 +10,9 @@ size = Vector2(2, 24)
 script = ExtResource("1_3fqlw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=609331510]
-texture = SubResource("PlaceholderTexture2D_044e1")
+position = Vector2(0.61, -0.775)
+scale = Vector2(0.307, 0.307)
+texture = ExtResource("2_k4wox")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=574583133]
 

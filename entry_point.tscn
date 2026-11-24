@@ -3,6 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://dapsx3sbw8a2k" path="res://ui/main_menu.tscn" id="1_h8jua"]
 
 [node name="EntryPoint" type="CanvasLayer" unique_id=822056461]
-metadata/_edit_horizontal_guides_ = [-672.0]
 
 [node name="MainMenu" parent="." unique_id=1067664374 instance=ExtResource("1_h8jua")]

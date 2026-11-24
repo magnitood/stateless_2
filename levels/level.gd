@@ -11,6 +11,10 @@ func get_portal(id: int) -> SceneTransitionPortal:
     return null
 
 func move_player_to_level(player: Player, pos: Vector2) -> void:
+    for child: Node in get_children():
+        if child is SceneTransitionPortal:
+            child.player = player
+
     player.owner = null
     player.reparent(self, false)
     player.position = pos

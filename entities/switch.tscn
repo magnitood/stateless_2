@@ -1,7 +1,22 @@
 [gd_scene format=3 uid="uid://jwd1ju20rorr"]
 
 [ext_resource type="Script" uid="uid://beye2girls7s8" path="res://entities/switch.gd" id="1_acao6"]
-[ext_resource type="Texture2D" uid="uid://rnmvbksngmt6" path="res://assets/icon.svg" id="1_d0rl7"]
+[ext_resource type="Texture2D" uid="uid://8vx0c4t5mwmj" path="res://assets/entities/switch_open.png" id="2_nldlc"]
+[ext_resource type="Texture2D" uid="uid://da0v4efg1t74u" path="res://assets/entities/switch_pressed.png" id="3_3onbj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_20ill"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nldlc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3onbj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_044e1"]
 size = Vector2(124, 120)
@@ -10,8 +25,11 @@ size = Vector2(124, 120)
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_acao6")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2069924226]
-texture = ExtResource("1_d0rl7")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1651845986]
+position = Vector2(7.485, -1.085)
+scale = Vector2(3.82, 3.82)
+sprite_frames = SubResource("SpriteFrames_20ill")
+frame_progress = 0.38637435
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2025558117]
 

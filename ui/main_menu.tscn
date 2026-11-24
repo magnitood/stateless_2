@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://bux0q4cq4yc23" path="res://ui/button.gd" id="6_ei257"]
 [ext_resource type="Texture2D" uid="uid://b887vkhiqvr6g" path="res://assets/main_menu/drop shadow.png" id="7_ubpvv"]
 [ext_resource type="FontFile" uid="uid://gigvaqwt10tg" path="res://assets/main_menu/ATC Krueger Bold.ttf" id="8_arv2f"]
-[ext_resource type="Texture2D" uid="uid://wc6et6ve4vb4" path="res://assets/main_menu/button1 inverted.png" id="9_arv2f"]
 [ext_resource type="Texture2D" uid="uid://8xeh02bqga7s" path="res://assets/main_menu/back.png" id="10_lsdqh"]
 [ext_resource type="AudioStream" uid="uid://dcq4x0l0mmox4" path="res://assets/audio/UI Message Appear 01.wav" id="12_w44g7"]
 [ext_resource type="AudioStream" uid="uid://cjd4bevrncrtn" path="res://assets/audio/CASSETTE_RATTLE_12.wav" id="13_cm266"]
@@ -85,10 +84,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -433.0
-offset_top = 70.00003
-offset_right = -333.0
-offset_bottom = 120.00003
+offset_left = -723.0
+offset_top = 161.0
+offset_right = -623.0
+offset_bottom = 211.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 1.996)
@@ -106,67 +105,26 @@ texture = ExtResource("7_ubpvv")
 
 [node name="Label" type="Label" parent="Button" unique_id=424261225]
 layout_mode = 0
-offset_left = 10.174881
-offset_top = 11.128777
-offset_right = 50.17488
-offset_bottom = 34.128777
-scale = Vector2(1.9641781, 1.1082959)
+offset_left = 17.5
+offset_top = 10.521055
+offset_right = 122.5
+offset_bottom = 101.52106
+scale = Vector2(0.574, 0.324)
 theme_override_fonts/font = ExtResource("8_arv2f")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 80
 text = "START"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button2" type="TextureButton" parent="." unique_id=1068260063]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -433.0
-offset_top = 169.0
-offset_right = -333.0
-offset_bottom = 219.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 1.996)
-texture_normal = ExtResource("9_arv2f")
-texture_pressed = ExtResource("9_arv2f")
-texture_hover = ExtResource("9_arv2f")
-script = ExtResource("6_ei257")
-
-[node name="DropShadow" type="Sprite2D" parent="Button2" unique_id=1646471949]
-modulate = Color(0.60960835, 0.60960835, 0.60960835, 0.41568628)
-z_index = -1
-position = Vector2(48.012722, 27.027054)
-scale = Vector2(0.9936408, 0.9793323)
-texture = ExtResource("7_ubpvv")
-
-[node name="Label" type="Label" parent="Button2" unique_id=956851547]
-layout_mode = 0
-offset_left = 10.174881
-offset_top = 11.128777
-offset_right = 50.17488
-offset_bottom = 34.128777
-scale = Vector2(1.9641781, 1.1082959)
-theme_override_fonts/font = ExtResource("8_arv2f")
-theme_override_font_sizes/font_size = 13
-text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Back" type="Sprite2D" parent="." unique_id=1151759351]
 z_index = -1
-position = Vector2(576.49994, 328)
-scale = Vector2(0.60052085, 0.6074074)
+position = Vector2(960, 540)
 texture = ExtResource("10_lsdqh")
 
 [node name="Stateless" type="Sprite2D" parent="." unique_id=324173112]
 modulate = Color(3.7045925, 3.7045925, 3.7045925, 1)
-position = Vector2(496.00006, 244)
-scale = Vector2(1.5859998, 1.37)
+position = Vector2(816.5, 421.99997)
+scale = Vector2(2.81, 2.233333)
 texture = ExtResource("2_5klac")
 script = ExtResource("3_lsdqh")
 
@@ -192,4 +150,3 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

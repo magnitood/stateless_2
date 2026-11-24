@@ -6,6 +6,7 @@ extends Area2D
 # @export var disable_mirroring: bool = false
 
 var array_of_sprite_list: Array[Array] = []
+var subviewport: SubViewport
 
 var offsets: Array[Vector2] = [
     Vector2( 0, -1),
@@ -27,6 +28,7 @@ func _ready() -> void:
     var rect: Rect2 = get_rect()
     var viewport: SubViewport = SubViewport.new()
     var camera: Camera2D = Camera2D.new()
+    print(get_viewport())
     camera.zoom = get_viewport().get_camera_2d().zoom
     camera.position = position
 
@@ -39,12 +41,13 @@ func _ready() -> void:
     viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
     viewport.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
     viewport.canvas_item_default_texture_repeat = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_ENABLED
+    subviewport = viewport
 
 
     # player.set_deferred("visible", false)
     get_parent().add_child.call_deferred(viewport)
 
-    await RenderingServer.frame_post_draw
+    # await RenderingServer.frame_post_draw
     var viewport_texture: Texture2D = viewport.get_texture()
     for offset in offsets:
         get_parent().add_child.call_deferred(make_sprite(position + offset*rect.size, viewport_texture))
@@ -63,9 +66,6 @@ func _ready() -> void:
     #         get_parent().add_child.call_deferred(new_sprite)
     #         sprites.append(new_sprite)
     #     array_of_sprite_list.append(sprites)
-
-func refresh_duplicates() -> void:
-    pass
 
 
 func _process(_delta: float) -> void:

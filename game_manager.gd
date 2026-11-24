@@ -6,6 +6,7 @@ var player: CharacterBody2D
 
 const TEST_LEVEL_2 = preload("res://levels/test_level2.tscn")
 const BAMBA_LEVEL = preload("res://levels/bamba_level.tscn")
+const ENDING = preload("res://levels/ending.tscn")
 
 func _ready() -> void:
     pass
@@ -21,6 +22,10 @@ func set_level(prev:int, next:int) -> void:
             get_tree().change_scene_to_packed(TEST_LEVEL_2)
         2:
             get_tree().change_scene_to_packed(BAMBA_LEVEL)
+        3:
+            get_tree().change_scene_to_packed(ENDING)
+            get_tree().root.get_node("BambaLevel").queue_free()
+            return
         _:
             assert(false, "Unreachable")
 
